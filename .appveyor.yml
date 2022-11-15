@@ -9,11 +9,9 @@ init:
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
 install:
 - ps: |
-    [System.Environment]::OSVersion.Version
+    [System.Environment]::OSVersion
     systeminfo.exe | sls Version
     winver
 - ps: docker images
-- ps: |
-    docker run -it mcr.microsoft.com/windows/servercore:1803 powershell -Command '[System.Environment]::OSVersion.Version'
 - ps: |
     docker build -t mytest:latest .

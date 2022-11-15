@@ -7,11 +7,11 @@ init:
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
 install:
-- ps: docker images
 - ps: |
     [System.Environment]::OSVersion.Version
     systeminfo.exe | sls Version
     winver
 - ps: docker pull mcr.microsoft.com/powershell:preview-nanoserver-1803
+- ps: docker images
 - ps: |
     docker run -it mcr.microsoft.com/powershell:preview-nanoserver-1803 pwsh.exe -Command '[System.Environment]::OSVersion.Version'

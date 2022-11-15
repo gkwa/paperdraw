@@ -1,0 +1,6 @@
+env:
+  CIRRUS_SHELL: powershell
+docker_builder:
+  platform: windows
+  os_version: 2019
+  build_script: docker images

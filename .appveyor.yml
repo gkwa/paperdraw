@@ -1,0 +1,16 @@
+image:
+- Visual Studio 2022
+build: "off"
+init:
+- ps: |
+    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
+- ps: |
+    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
+install:
+- ps: docker images
+- ps: |
+    [System.Environment]::OSVersion.Version
+    systeminfo.exe | sls Version
+    winver
+- ps: |
+    docker run -it mcr.microsoft.com/powershell:preview-nanoserver-1803 pwsh.exe -Command '[System.Environment]::OSVersion.Version'

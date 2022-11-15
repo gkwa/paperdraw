@@ -1,0 +1,13 @@
+"on":
+- push
+jobs:
+  test:
+    runs-on: windows-2019
+    steps:
+    - name: Get size of windows image
+      uses: Amadevus/pwsh-script@v2
+      id: get-size-of-windows-image
+      with:
+        script: |
+          docker images
+    - run: echo "${{ steps.get-size-of-windows-image.outputs.result }}"

@@ -12,9 +12,8 @@ install:
     [System.Environment]::OSVersion.Version
     systeminfo.exe | sls Version
     winver
-- ps: docker pull mcr.microsoft.com/powershell:lts-7.2-nanoserver-1809
 - ps: docker images
 - ps: |
-    docker run -it mcr.microsoft.com/powershell:lts-7.2-nanoserver-1809 pwsh -Command '[System.Environment]::OSVersion.Version'
+    docker run -it mcr.microsoft.com/windows/servercore:1803 powershell -Command '[System.Environment]::OSVersion.Version'
 - ps: |
     docker build -t mytest:latest .

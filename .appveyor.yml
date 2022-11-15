@@ -15,4 +15,4 @@ install:
 - ps: docker pull mcr.microsoft.com/powershell:lts-7.2-nanoserver-1809
 - ps: docker images
 - ps: |
-    docker run -it mcr.microsoft.com/powershell:lts-7.2-nanoserver-1809 powershell -Command '[System.Environment]::OSVersion.Version'
+    docker run -it mcr.microsoft.com/powershell:lts-7.2-nanoserver-1809 pwsh.exe -Command '[System.Environment]::OSVersion.Version'

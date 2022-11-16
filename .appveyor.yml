@@ -14,4 +14,4 @@ install:
     winver
 - ps: docker images
 - ps: |
-    docker build -t mytest:latest .
+    docker build --tag taylorm/paperdraw:appveyor .

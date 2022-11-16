@@ -4,9 +4,9 @@ docker_builder:
   env:
     DOCKERHUB_USERNAME: ENCRYPTED[334f20f79e8244b05d0aed13f2e38c5cf636ded8b5848048a375e58dae6849f30c954b6fe1f6b4d54f9d53b65a890238]
     DOCKERHUB_PASSWORD: ENCRYPTED[1c29ac18749a061365d767d4f903030e79d5000f8521de106dde7b57a2640edf78af2ca3a8db5127c4167378529bdc6d]
+  docker_login_script: docker login --username=$DOCKERHUB_USERNAME --password=$DOCKERHUB_PASSWORD
   platform: windows
   os_version: 2019
   docker_check_images_script: docker images
   docker_build_script: docker build --tag taylorm/paperdraw:cirrus .
-  docker_login_script: docker login --username=$DOCKERHUB_USERNAME --password=$DOCKERHUB_PASSWORD
   docker_push_script: docker push docker.io/$DOCKERHUB_USERNAME/paperdraw:cirrus

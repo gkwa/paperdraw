@@ -10,4 +10,4 @@ docker_builder:
     docker images
     docker build --tag taylorm/paperdraw:cirrus .
   login_script: docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
-  push_script: docker push taylorm/paperdraw:cirrus
+  push_script: docker push docker.io/$DOCKERHUB_USERNAME/paperdraw:cirrus

@@ -6,6 +6,7 @@ docker_builder:
     DOCKERHUB_PASSWORD: ENCRYPTED[1c29ac18749a061365d767d4f903030e79d5000f8521de106dde7b57a2640edf78af2ca3a8db5127c4167378529bdc6d]
   platform: windows
   os_version: 2019
+  check_images_script: docker images
   build_script: |
     docker images
     docker build --tag taylorm/paperdraw:cirrus .

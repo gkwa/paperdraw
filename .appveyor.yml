@@ -8,10 +8,11 @@ init:
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
 install:
+- ps: docker login --username $Env:DOCKER_USERNAME --password $Env:DOCKER_PASSWORD
 - ps: |
     [System.Environment]::OSVersion
     systeminfo.exe | sls Version
     winver
 - ps: docker images
-- ps: |
-    docker build --tag taylorm/paperdraw:appveyor .
+- ps: docker build --tag taylorm/paperdraw:appveyor .
+- ps: docker push taylorm/paperdraw:appveyor

@@ -6,8 +6,7 @@ docker_builder:
   env:
     DOCKER_USERNAME: ENCRYPTED[!d9d740a2852c63872c5e21bfe25f49ce25d25322a17f4b0e1a49075174f12fad2ed2e048c08f9955bc54021af3a47fa0!]
     DOCKER_PASSWORD: ENCRYPTED[!0e323d750c13cde7aa7eababe67d4cd0eade4a506570b7b778f9e21c4c095978ad0fd3b37a038c20f0721e694e8d73ad!]
-  docker_login_script: |
-    docker login --username $Env:DOCKER_USERNAME --password $Env:DOCKER_PASSWORD
+  docker_login_script: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
   docker_check_images_script: docker images
   docker_build_script: docker build --tag taylorm/paperdraw:cirrus .
   docker_push_script: docker push taylorm/paperdraw:cirrus

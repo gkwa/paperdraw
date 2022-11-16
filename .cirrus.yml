@@ -4,8 +4,8 @@ docker_builder:
   platform: windows
   os_version: 2019
   env:
-    DOCKER_USERNAME: ENCRYPTED[334f20f79e8244b05d0aed13f2e38c5cf636ded8b5848048a375e58dae6849f30c954b6fe1f6b4d54f9d53b65a890238]
-    DOCKER_PASSWORD: ENCRYPTED[1c29ac18749a061365d767d4f903030e79d5000f8521de106dde7b57a2640edf78af2ca3a8db5127c4167378529bdc6d]
+    DOCKER_USERNAME: ENCRYPTED[!d9d740a2852c63872c5e21bfe25f49ce25d25322a17f4b0e1a49075174f12fad2ed2e048c08f9955bc54021af3a47fa0!]
+    DOCKER_PASSWORD: ENCRYPTED[!0e323d750c13cde7aa7eababe67d4cd0eade4a506570b7b778f9e21c4c095978ad0fd3b37a038c20f0721e694e8d73ad!]
   docker_login_script: |
     echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
   docker_check_images_script: docker images

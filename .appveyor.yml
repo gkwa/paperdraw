@@ -8,7 +8,7 @@ init:
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
 install:
-- ps: docker login --username $Env:DOCKER_USERNAME --password $Env:DOCKER_PASSWORD
+- ps: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
 - ps: |
     [System.Environment]::OSVersion
     systeminfo.exe | sls Version

@@ -7,8 +7,6 @@ docker_builder:
   platform: windows
   os_version: 2019
   docker_check_images_script: docker images
-  docker_build_script: |
-    docker images
-    docker build --tag taylorm/paperdraw:cirrus .
-  docker_login_script: docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
+  docker_build_script: docker build --tag taylorm/paperdraw:cirrus .
+  docker_login_script: docker login --username=$DOCKERHUB_USERNAME --password=$DOCKERHUB_PASSWORD
   docker_push_script: docker push docker.io/$DOCKERHUB_USERNAME/paperdraw:cirrus

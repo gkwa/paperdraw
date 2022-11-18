@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
 ENV CHOCO_URL=https://chocolatey.org/install.ps1
-ENV C:\ProgramData\chocolatey\bin;$Env:PATH
+ENV PATH=C:\ProgramData\chocolatey\bin;$Env:PATH
 
 RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features

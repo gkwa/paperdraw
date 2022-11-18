@@ -13,8 +13,6 @@ RUN &"C:\ProgramData\chocolatey\bin\choco" feature disable -n showDownloadProgre
 
 RUN Set-Service -Name wuauserv -StartupType Manual; Install-WindowsFeature -Name NET-Framework-Features
 RUN &"C:\ProgramData\chocolatey\bin\choco" install wixtoolset
-COPY wixtoolset_path.ps1 /Windows/Temp/
-RUN /Windows/Temp/wixtoolset_path.ps1
 
 RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9
 RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix

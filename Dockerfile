@@ -22,3 +22,5 @@ RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang
 
 RUN python -m pip install --upgrade --quiet --quiet wheel pip
+
+RUN &C:\ProgramData\chocolatey\bin\choco list

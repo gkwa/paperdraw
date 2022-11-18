@@ -11,7 +11,9 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 RUN &C:\ProgramData\chocolatey\bin\choco feature disable -n showDownloadProgress; \
     &C:\ProgramData\chocolatey\bin\choco feature enable -n allowGlobalConfirmation
 
-RUN Set-Service -Name wuauserv -StartupType Manual; Install-WindowsFeature -Name NET-Framework-Features
+RUN Set-Service -Name wuauserv -StartupType Manual; \
+    Install-WindowsFeature -Name NET-Framework-Features; \
+    Set-Service -Name wuauserv -StartupType Automatic
 RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
 COPY wixtoolset_path.ps1 /Windows/Temp/
 RUN /Windows/Temp/wixtoolset_path.ps1

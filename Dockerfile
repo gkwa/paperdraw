@@ -19,4 +19,4 @@ RUN /Windows/Temp/wixtoolset_path.ps1
 RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9.13
 RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
 
-RUN pip install --user --upgrade --disable-pip-version-check --quiet --quiet wheel pip
+RUN python3 -m pip install --upgrade --disable-pip-version-check --quiet --quiet wheel pip

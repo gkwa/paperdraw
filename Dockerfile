@@ -11,8 +11,7 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
 RUN choco feature disable -n showDownloadProgress; \
     choco feature enable -n allowGlobalConfirmation
 
-RUN Set-Service -Name wuauserv -StartupType Manual; \
-    Install-WindowsFeature -Name NET-Framework-Features
+RUN Set-Service -Name wuauserv -StartupType Manual; Install-WindowsFeature -Name NET-Framework-Features
 RUN choco install wixtoolset
 
 RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \

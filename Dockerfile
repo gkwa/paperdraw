@@ -19,8 +19,8 @@ RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "hea
     $oldPath = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine); \
     If ($oldPath.Split(';') -inotcontains $wix_dir){ [Environment]::SetEnvironmentVariable('Path', $("{0};${wix_dir}" -f $oldPath), [EnvironmentVariableTarget]::Machine) }
 
-RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9; \
-    &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
+RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9; 
+RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
 
 RUN pip install --disable-pip-version-check --quiet --quiet wheel pip
 

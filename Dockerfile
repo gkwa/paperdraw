@@ -17,6 +17,6 @@ COPY wixtoolset_path.ps1 /Windows/Temp/
 RUN /Windows/Temp/wixtoolset_path.ps1
 
 RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9.13
-RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
+RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix golang
 
 RUN python -m pip install --upgrade --disable-pip-version-check --quiet --quiet wheel pip

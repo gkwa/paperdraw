@@ -20,7 +20,7 @@ RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "hea
     If ($oldPath.Split(';') -inotcontains $wix_dir){ [Environment]::SetEnvironmentVariable('Path', $("{0};${wix_dir}" -f $oldPath), [EnvironmentVariableTarget]::Machine) }
 
 RUN choco install python --version 3.9; \
-    choco install git wixtoolset ytt dos2unix
+    choco install git ytt dos2unix
 
 RUN pip install --disable-pip-version-check --quiet --quiet \
     wheel pip

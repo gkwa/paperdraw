@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
 ENV CHOCO_URL=https://chocolatey.org/install.ps1
+ENV C:\ProgramData\chocolatey\bin;$Env:PATH
 
 RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features
@@ -19,8 +20,7 @@ RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "hea
     $oldPath = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine); \
     If ($oldPath.Split(';') -inotcontains $wix_dir){ [Environment]::SetEnvironmentVariable('Path', $("{0};${wix_dir}" -f $oldPath), [EnvironmentVariableTarget]::Machine) }
 
-RUN choco install python --version 3.9
-RUN choco install git ytt dos2unix
+RUN choco install python --version 3.9; choco install git ytt dos2unix
 
 RUN pip install --disable-pip-version-check --quiet --quiet wheel pip
 

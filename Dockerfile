@@ -22,6 +22,6 @@ RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "hea
 RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9
 RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
 
-RUN pip install --disable-pip-version-check --quiet --quiet wheel pip
+RUN pip install --upgrade --disable-pip-version-check --quiet --quiet wheel pip
 
 RUN heat -?

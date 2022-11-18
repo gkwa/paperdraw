@@ -18,5 +18,3 @@ RUN &"C:\ProgramData\chocolatey\bin\choco" install python --version 3.9
 RUN &"C:\ProgramData\chocolatey\bin\choco" install git ytt dos2unix
 
 RUN pip install --upgrade --disable-pip-version-check --quiet --quiet wheel pip
-
-RUN heat -?

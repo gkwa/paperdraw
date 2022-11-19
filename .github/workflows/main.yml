@@ -1,7 +1,7 @@
 "on":
   push:
   schedule:
-  - cron: '0 5 * * SAT'
+  - cron: '30 16 * * SAT'
 jobs:
   buildx:
     runs-on: windows-2019

@@ -1,5 +1,7 @@
 "on":
-- push
+  push:
+  schedule:
+  - cron: '0 0 * * SUN'
 jobs:
   buildx:
     runs-on: windows-2019

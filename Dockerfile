@@ -4,6 +4,7 @@ SHELL ["powershell", "-Command"]
 
 ENV CHOCO_URL=https://chocolatey.org/install.ps1
 
+# chocolatey
 RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
     [System.Net.ServicePointManager]::SecurityProtocol = `\
         [System.Net.SecurityProtocolType]'Tls,Tls11,Tls12'; \
@@ -11,6 +12,7 @@ RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
     &C:\ProgramData\chocolatey\bin\choco feature disable -n showDownloadProgress; \
     &C:\ProgramData\chocolatey\bin\choco feature enable -n allowGlobalConfirmation
 
+# wixtoolset
 RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
     Set-Service -Name wuauserv -StartupType Automatic; \

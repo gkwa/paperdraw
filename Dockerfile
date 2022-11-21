@@ -13,9 +13,9 @@ RUN &C:\ProgramData\chocolatey\bin\choco feature disable -n showDownloadProgress
 
 RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
-    Set-Service -Name wuauserv -StartupType Automatic
-RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
-RUN Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
+    Set-Service -Name wuauserv -StartupType Automatic; \
+    &C:\ProgramData\chocolatey\bin\choco install wixtoolset; \
+    Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
     $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
     Install-ChocolateyPath -PathToInstall $wix_dir
 

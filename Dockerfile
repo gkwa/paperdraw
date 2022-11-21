@@ -16,7 +16,8 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Set-Service -Name wuauserv -StartupType Automatic; \
     &C:\ProgramData\chocolatey\bin\choco install wixtoolset; \
     Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
-    $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
+    $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin \
+        -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
     Install-ChocolateyPath -PathToInstall $wix_dir
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13

@@ -16,8 +16,6 @@ jobs:
     - run: echo "${{ steps.get-size-of-windows-image.outputs.result }}"
     - name: Checkout
       uses: actions/checkout@v3
-    - uses: tenhaus/get-release-or-tag@v2
-      id: tag
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
       with:
@@ -29,12 +27,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build
       run: |
-        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ steps.tag.outputs.tag }}
+        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:$env:GITHUB_REF_NAME
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
     - name: Test path to heat.
       run: |
         docker run docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github heat -help
     - name: Push
       run: |
-        docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ steps.tag.outputs.tag }}
+        docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:$env:GITHUB_REF_NAME
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github

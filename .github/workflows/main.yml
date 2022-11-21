@@ -27,12 +27,12 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build
       run: |
-        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ github.sha }}
+        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
     - name: Test path to heat.
       run: |
         docker run docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github heat -help
     - name: Push
       run: |
-        docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ github.sha }}
+        docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github

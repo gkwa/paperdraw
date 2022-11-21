@@ -15,12 +15,9 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
     Set-Service -Name wuauserv -StartupType Automatic
 RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
-
-RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
-    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\heat.exe --path="${wix_dir}\heat.exe"; \
-    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\candle.exe --path="${wix_dir}\candle.exe"; \
-    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\light.exe --path="${wix_dir}\light.exe"; \
-    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\insignia.exe --path="${wix_dir}\insignia.exe";
+RUN Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
+    $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
+    Install-ChocolateyPath -PathToInstall $wix_dir
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang

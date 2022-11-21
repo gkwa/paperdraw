@@ -15,11 +15,8 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
     Set-Service -Name wuauserv -StartupType Automatic
 RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
-
-RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
-    $Path = $wix_dir; \
-    $Path = [Environment]::GetEnvironmentVariable("PATH", "Machine") + [IO.Path]::PathSeparator + $Path; \
-    [Environment]::SetEnvironmentVariable( "Path", $Path, "Machine" )
+COPY wix_path.ps1 /Windows/Temp/
+RUN /Windows/Temp/wix_path.ps1
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang

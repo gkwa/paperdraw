@@ -19,7 +19,7 @@ RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
 RUN $wix_dir = 'C:\Program Files (x86)\WiX Toolset v3.11\bin'; \
     $Path = $wix_dir; \
     $Path = [Environment]::GetEnvironmentVariable("PATH", "Machine") + [IO.Path]::PathSeparator + $Path; \
-    [Environment]::SetEnvironmentVariable("Path", $Path, "Machine")
+    [Environment]::SetEnvironmentVariable("PATH", $Path, "Machine")
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang

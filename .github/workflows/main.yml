@@ -29,7 +29,7 @@ jobs:
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
     - name: Test path to heat.
       run: |
-        docker run -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github heat -help
+        winpty docker run -ti docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github heat -help
     - name: Push
       run: |
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github

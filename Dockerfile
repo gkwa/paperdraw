@@ -16,10 +16,11 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Set-Service -Name wuauserv -StartupType Automatic
 RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
 
-RUN $wix_dir = 'C:\Program Files (x86)\WiX Toolset v3.11\bin'; \
-    $Path = $wix_dir; \
-    $Path = [Environment]::GetEnvironmentVariable("PATH", "Machine") + [IO.Path]::PathSeparator + $Path; \
-    [Environment]::SetEnvironmentVariable("PATH", $Path, "Machine")
+RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
+    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\heat.exe --path="${wix_dir}\heat.exe"; \
+    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\candle.exe --path="${wix_dir}\candle.exe"; \
+    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\light.exe --path="${wix_dir}\light.exe"; \
+    &C:\ProgramData\chocolatey\tools\shimgen.exe --output=c:\ProgramData\Chocolatey\bin\insignia.exe --path="${wix_dir}\insignia.exe";
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang

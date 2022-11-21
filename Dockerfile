@@ -16,13 +16,13 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Set-Service -Name wuauserv -StartupType Automatic
 RUN &C:\ProgramData\chocolatey\bin\choco install wixtoolset
 
-RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
-    $oldPath = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine); \
-    if ($oldPath.Split(';') -inotcontains $wix_dir){ [Environment]::SetEnvironmentVariable('Path', $("{0};${wix_dir}" -f $oldPath), [EnvironmentVariableTarget]::Machine); }
-
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang
 
 RUN python -m pip install --upgrade --quiet --quiet wheel pip
 
 RUN &C:\ProgramData\chocolatey\bin\choco list --local-only
+
+RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | select-object -first 1).Directory.FullName; \
+    $oldPath = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine); \
+    if ($oldPath.Split(';') -inotcontains $wix_dir){ [Environment]::SetEnvironmentVariable('Path', $("{0};${wix_dir}" -f $oldPath), [EnvironmentVariableTarget]::Machine); }

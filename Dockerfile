@@ -18,9 +18,9 @@ RUN Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
     Set-Service -Name wuauserv -StartupType Automatic; \
     &C:\ProgramData\chocolatey\bin\choco install wixtoolset
-RUN Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force
-RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | Select-Object -First 1).Directory.FullName
-RUN Install-ChocolateyPath -PathToInstall $wix_dir
+RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
+    Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
+    Install-ChocolateyPath -PathToInstall $wix_dir
 
 RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang

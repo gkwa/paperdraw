@@ -13,7 +13,7 @@ init:
     While($true){
         $counter += 1
         Try {
-            $ready = docker1 images
+            $ready = docker images
             If($counter -gt 10 -or $ready){ break; }
         } Catch {}
         $span = New-Timespan –Start $start –End (Get-Date)

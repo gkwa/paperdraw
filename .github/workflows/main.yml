@@ -21,7 +21,11 @@ jobs:
       with:
         use: true
     - name: Get Docker version
-      run: docker version
+      run: |
+        docker version
+        $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
+        $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
+        $versiontag
     - name: Get short SHA
       run: echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >>$env:GITHUB_ENV
     - name: Print short SHA

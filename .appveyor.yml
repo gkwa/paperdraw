@@ -6,7 +6,11 @@ on_failure:
 - ps: $blockrdp = $true; iex ((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-- ps: docker version
+- ps: |
+    docker version
+    $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
+    $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
+    $versiontag
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
 - ps: |

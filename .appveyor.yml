@@ -7,6 +7,14 @@ on_failure:
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
+    # FIXME: workaround: clear some space
+    docker rmi mcr.microsoft.com/dotnet/framework/aspnet:4.8
+    docker rmi mcr.microsoft.com/windows/nanoserver:1803
+    docker rmi mcr.microsoft.com/windows/nanoserver:1809
+    docker rmi mcr.microsoft.com/windows/nanoserver:sac2016
+    docker rmi mcr.microsoft.com/windows/servercore:1803
+    docker rmi mcr.microsoft.com/windows/servercore:ltsc2016
+- ps: |
     docker info
     docker version
     $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'

@@ -5,6 +5,10 @@ build: "off"
 on_failure:
 - ps: $blockrdp = $true; iex ((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 init:
+# Wait for docker daemon to be available
+- ps: |
+    $TimeSpan = New-TimeSpan -Minutes 1
+    Start-Sleep -Seconds $TimeSpan.TotalSeconds
 # FIXME: workaround: clear some space
 - ps: |
     $save = "mcr.microsoft.com/windows/servercore:ltsc2019"

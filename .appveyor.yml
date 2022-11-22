@@ -5,6 +5,14 @@ build: "off"
 on_failure:
 - ps: $blockrdp = $true; iex ((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 init:
+- ps: |
+    # FIXME: workaround: clear some space
+    docker rmi mcr.microsoft.com/dotnet/framework/aspnet:4.8
+    docker rmi mcr.microsoft.com/windows/nanoserver:1803
+    docker rmi mcr.microsoft.com/windows/nanoserver:1809
+    docker rmi mcr.microsoft.com/windows/nanoserver:sac2016
+    docker rmi mcr.microsoft.com/windows/servercore:1803
+    docker rmi mcr.microsoft.com/windows/servercore:ltsc2016
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
     docker info

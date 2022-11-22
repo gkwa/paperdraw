@@ -20,8 +20,9 @@ jobs:
       uses: docker/setup-buildx-action@v2
       with:
         use: true
-    - name: Get Docker version
+    - name: Get Docker version and info
       run: |
+        docker info
         docker version
         $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
         $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"

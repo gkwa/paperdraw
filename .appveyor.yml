@@ -51,6 +51,6 @@ install:
     winver
 - ps: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
 - ps: |
-    docker build --tag $Env:DOCKER_USERNAME/paperdraw:appveyor .
+    docker build . -f Dockerfile --tag docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:appveyor
 - ps: |
-    docker push docker.io/$Env:DOCKER_USERNAME/paperdraw:appveyor
+    docker image push docker.io/$Env:DOCKER_USERNAME/paperdraw:appveyor

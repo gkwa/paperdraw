@@ -14,5 +14,7 @@ install:
     systeminfo.exe | sls Version
     winver
 - ps: docker images
-- ps: docker build --tag ${Env:DOCKER_USERNAME}/paperdraw:appveyor .
-- ps: docker push docker.io/${Env:DOCKER_USERNAME}/paperdraw:appveyor
+- ps: |
+    docker build --tag ${Env:DOCKER_USERNAME}/paperdraw:appveyor .
+- ps: |
+    docker push docker.io/${Env:DOCKER_USERNAME}/paperdraw:appveyor

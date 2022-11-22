@@ -10,14 +10,14 @@ init:
     $start=(Get-Date)
     $counter = 0
     $TimeSpan = New-TimeSpan -Seconds 5
-    While($true){
+    While($true) {
         $counter += 1
         Try {
             $ready = docker images
             If($counter -gt 10 -or $ready){ break; }
         } Catch {}
         $span = New-Timespan –Start $start –End (Get-Date)
-        $pretty = $span.ToString("mm'min:'ss'sec'")
+        $pretty = $span.ToString("hh'mm'm:'ss's'")
         Write-Host "Waiting for docker to start #${pretty}..."
         Start-Sleep -Seconds $TimeSpan.TotalSeconds
     }
@@ -41,7 +41,7 @@ init:
     docker version
     $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
     $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
-    $versiontag
+    Write-Host $versiontag
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
 - ps: |

@@ -25,12 +25,12 @@ init:
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
 install:
-- ps: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
 - ps: |
     [System.Environment]::OSVersion
     systeminfo.exe | sls Version
     winver
 - ps: docker images
+- ps: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
 - ps: |
     docker build --tag $Env:DOCKER_USERNAME/paperdraw:appveyor .
 - ps: |

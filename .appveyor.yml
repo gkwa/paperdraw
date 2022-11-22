@@ -5,7 +5,17 @@ build: "off"
 on_failure:
 - ps: $blockrdp = $true; iex ((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 init:
-# Wait for docker daemon to be available
+- ps: |
+    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
+- ps: |
+    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
+install:
+- ps: |
+    docker info
+    docker version
+    $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
+    $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
+    Write-Host $versiontag
 - ps: |
     $start=(Get-Date)
     $counter = 0
@@ -21,7 +31,6 @@ init:
         Write-Host "Waiting for docker to start #${pretty}..."
         Start-Sleep -Seconds $TimeSpan.TotalSeconds
     }
-# FIXME: workaround: clear some space
 - ps: |
     $save = "mcr.microsoft.com/windows/servercore:ltsc2019"
     $script = Join-Path . "space.ps1"
@@ -37,21 +46,9 @@ init:
     &$script
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
-    docker info
-    docker version
-    $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
-    $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
-    Write-Host $versiontag
-- ps: |
-    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
-- ps: |
-    &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchWindowsEngine
-install:
-- ps: |
     [System.Environment]::OSVersion
     systeminfo.exe | sls Version
     winver
-- ps: docker images
 - ps: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
 - ps: |
     docker build --tag $Env:DOCKER_USERNAME/paperdraw:appveyor .

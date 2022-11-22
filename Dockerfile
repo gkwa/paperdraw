@@ -14,11 +14,13 @@ RUN &C:\ProgramData\chocolatey\bin\choco feature disable -n showDownloadProgress
     &C:\ProgramData\chocolatey\bin\choco feature enable -n allowGlobalConfirmation
 
 # wixtoolset
-RUN Set-Service -Name wuauserv -StartupType Manual; \
+RUN $prop = Get-Service wuauserv | Select -Property StartType; \
+    Set-Service -Name wuauserv -StartupType Manual; \
     Install-WindowsFeature -Name NET-Framework-Features; \
-    Set-Service -Name wuauserv -StartupType Automatic; \
-    &C:\ProgramData\chocolatey\bin\choco install wixtoolset
-RUN $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
+    Set-Service -Name wuauserv -StartupType $prop.StartType; \
+    &C:\ProgramData\chocolatey\bin\choco install wixtoolset; \
+    $wix_dir = (Get-ChildItem -Recurse C:\Program*\Wix*Toolset*\bin `\
+        -Filter "heat.exe" | Select-Object -First 1).Directory.FullName; \
     Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
     Install-ChocolateyPath -PathToInstall $wix_dir
 

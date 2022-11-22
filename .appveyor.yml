@@ -6,6 +6,7 @@ on_failure:
 - ps: $blockrdp = $true; iex ((new-object net.webclient).downloadstring('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: docker version
 - ps: |
     &$Env:ProgramFiles\Docker\Docker\DockerCli.exe -SwitchDaemon
 - ps: |

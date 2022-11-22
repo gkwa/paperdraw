@@ -17,7 +17,7 @@ init:
             If($counter -gt 10 -or $ready){ break; }
         } Catch {}
         $span = New-Timespan –Start $start –End (Get-Date)
-        $pretty = $span.ToString("hh'h:'mm'm:'ss's'")
+        $pretty = $span.ToString("hh'h'mm'm'ss's'")
         Write-Host "Waiting for docker to start #${pretty}..."
         Start-Sleep -Seconds $TimeSpan.TotalSeconds
     }

@@ -12,7 +12,7 @@ docker_builder:
     $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
     $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
     $versiontag
-  docker_login_script: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
   docker_check_images_script: docker images
-  docker_build_script: docker build --tag taylorm/paperdraw:cirrus .
-  docker_push_script: docker push taylorm/paperdraw:cirrus
+  docker_login_script: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
+  docker_build_script: docker build . -f Dockerfile --tag docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus
+  docker_push_script: docker image push docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus

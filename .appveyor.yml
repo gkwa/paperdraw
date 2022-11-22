@@ -7,12 +7,14 @@ on_failure:
 init:
 - ps: |
     # FIXME: workaround: clear some space
-    docker rmi mcr.microsoft.com/dotnet/framework/aspnet:4.8
-    docker rmi mcr.microsoft.com/windows/nanoserver:1803
-    docker rmi mcr.microsoft.com/windows/nanoserver:1809
-    docker rmi mcr.microsoft.com/windows/nanoserver:sac2016
-    docker rmi mcr.microsoft.com/windows/servercore:1803
-    docker rmi mcr.microsoft.com/windows/servercore:ltsc2016
+    $save = "mcr.microsoft.com/windows/servercore:ltsc2019"
+    docker images  --format "{{json . }}" | ConvertFrom-json | Foreach-Object {
+        $image = "$($_.Repository):$($_.TAG)"
+        if (!($image.Contains($save))) {
+            Write-Host removing $image
+            docker rmi $image
+        }
+    }
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
     docker info

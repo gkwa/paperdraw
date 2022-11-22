@@ -7,14 +7,26 @@ on_failure:
 init:
 # Wait for docker daemon to be available
 - ps: |
-    $TimeSpan = New-TimeSpan -Minutes 5
-    Start-Sleep -Seconds $TimeSpan.TotalSeconds
+    $start=(Get-Date)
+    $counter = 0
+    $TimeSpan = New-TimeSpan -Seconds 5
+    While($true){
+        $counter += 1
+        Try {
+            $ready = docker1 images
+            If($counter -gt 10 -or $ready){ break; }
+        } Catch {}
+        $span = New-Timespan –Start $start –End (Get-Date)
+        $pretty = $span.ToString("mm'min:'ss'sec'")
+        Write-Host "Waiting for docker to start #${pretty}..."
+        Start-Sleep -Seconds $TimeSpan.TotalSeconds
+    }
 # FIXME: workaround: clear some space
 - ps: |
     $save = "mcr.microsoft.com/windows/servercore:ltsc2019"
     $script = Join-Path . "space.ps1"
     If(Test-Path $script){ Remove-Item $script; }
-    docker images  --format "{{json . }}" | ConvertFrom-json | Foreach-Object {
+    docker images --format "{{json . }}" | ConvertFrom-json | Foreach-Object {
         $image = "$($_.Repository):$($_.TAG)"
         if (!($image.Contains($save))) {
             echo "Write-Host removing $image" | Out-File -Append -Encoding ASCII $script
@@ -22,6 +34,7 @@ init:
         }
     }
     cat $script
+    ./$script
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 - ps: |
     docker info

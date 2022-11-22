@@ -7,7 +7,7 @@ on_failure:
 init:
 # Wait for docker daemon to be available
 - ps: |
-    $TimeSpan = New-TimeSpan -Minutes 1
+    $TimeSpan = New-TimeSpan -Minutes 5
     Start-Sleep -Seconds $TimeSpan.TotalSeconds
 # FIXME: workaround: clear some space
 - ps: |

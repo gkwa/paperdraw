@@ -3,16 +3,25 @@ env:
 docker_builder:
   platform: windows
   os_version: 2019
+  setup_script: |
+    echo "SHORT_SHA=$("$env:CIRRUS_CHANGE_IN_REPO".SubString(0, 8))" >>$env:CIRRUS_ENV
   env:
     DOCKER_USERNAME: ENCRYPTED[!d9d740a2852c63872c5e21bfe25f49ce25d25322a17f4b0e1a49075174f12fad2ed2e048c08f9955bc54021af3a47fa0!]
     DOCKER_PASSWORD: ENCRYPTED[!0e323d750c13cde7aa7eababe67d4cd0eade4a506570b7b778f9e21c4c095978ad0fd3b37a038c20f0721e694e8d73ad!]
   docker_check_info_script: |
+    Write-Host Docker Info:
     docker info
+    Write-Host Docker Version:
     docker version
     $winver = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\'
     $versiontag = "$($winver.CurrentMajorVersionNumber).$($winver.CurrentMinorVersionNumber).$($winver.CurrentBuildNumber).$($winver.UBR)"
-    $versiontag
+    Write-Host Windows Host Version:
+    Write-Host $versiontag
   docker_check_images_script: docker images
+  docker_build_script: |
+    docker build . -f Dockerfile --tag docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus
+    docker build . -f Dockerfile --tag docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus_${env:SHORT_SHA}
   docker_login_script: echo $Env:DOCKER_PASSWORD | docker login --username $Env:DOCKER_USERNAME --password-stdin
-  docker_build_script: docker build . -f Dockerfile --tag docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus
-  docker_push_script: docker image push docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus
+  docker_push_script: |
+    docker image push docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus
+    docker image push docker.io/$Env:DOCKER_USERNAME/paperdraw:cirrus:cirrus_${env:SHORT_SHA}

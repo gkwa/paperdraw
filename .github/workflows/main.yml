@@ -50,3 +50,4 @@ jobs:
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ env.SHORT_SHA }}
         docker image push docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
+

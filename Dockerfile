@@ -24,7 +24,7 @@ RUN $prop = Get-Service wuauserv | Select -Property StartType; \
     Import-Module "$env:ChocolateyInstall\helpers\chocolateyInstaller.psm1" -Force; \
     Install-ChocolateyPath -PathToInstall $wix_dir
 
-RUN &C:\ProgramData\chocolatey\bin\choco install python --version 3.9.13
+RUN &C:\ProgramData\chocolatey\bin\choco install python
 RUN &C:\ProgramData\chocolatey\bin\choco install git ytt dos2unix golang
 
 RUN python -m pip install --upgrade --quiet --quiet wheel pip

@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 SHELL ["powershell", "-Command"]
 
+# rebuild without cache
+RUN ver 
 ENV CHOCO_URL=https://chocolatey.org/install.ps1
 
 # chocolatey

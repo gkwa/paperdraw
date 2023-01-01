@@ -39,7 +39,7 @@ jobs:
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
     - name: Test path to heat.
       run: |
-        docker run docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github heat -help
+        docker run docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw heat -help
     - name: Login to dockerhub
       uses: docker/login-action@v2
       with:

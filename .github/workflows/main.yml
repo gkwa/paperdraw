@@ -34,7 +34,7 @@ jobs:
       run: echo "Short SHA is ${{ env.SHORT_SHA }}"
     - name: Build
       run: |
-        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw
+        docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw --no-cache
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:${{ env.SHORT_SHA }}
         docker build . -f Dockerfile -t docker.io/${{ secrets.DOCKER_USERNAME }}/paperdraw:github
     - name: Test path to heat.
